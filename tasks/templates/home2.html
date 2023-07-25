@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <title>Home</title>
+        <link rel="stylesheet" href= '{% static "/css/estilosHome.css" %}'>
+            <main>
+
+                <div class="contenedor__todo">
+                    <div class="caja__trasera">
+                    </div>
+                    <!--contenedor de home-->
+                    <div class="contenedor__bienvenida">
+                        <form action="/salir/" class="formulario__login" method="post">
+                            {% csrf_token %}
+                            <h2>Bienvenido {{user.username}}!</h2>
+                            
+                            <button type="submit" name="logout--">Salir</button>
+                        </form>
+                </div>    
+            </main>
+        <script src='{% static "/js/scriptHome.js" %}'> </script>
+{% endblock %}
+
+
+<!--boton de salir-->

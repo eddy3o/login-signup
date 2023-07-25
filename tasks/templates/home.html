@@ -1,25 +1,99 @@
 
-{% extends 'base.html' %}
 {% load static %}
-
-
-{% block content %}
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-        <link rel="stylesheet" href= '{% static "/css/estilosHome.css" %}'>
-            <main>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <main>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #033d74cb;">
+            <div class="container">
+                <a class="navbar-brand" href="#">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Menu -->
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <form class="d-flex ms-auto col-md-6" role="search">
+                        {% csrf_token %}
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Buscar</button>
+                    </form>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="salir/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{user.username}}
+                            </a>
+                            <ul class="dropdown-menu col-1">
+                                <li><a class="dropdown-item" href="#">Mi cuenta</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/salir/" type="submit" name="logout--">Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-                <div class="contenedor__todo">
-                    <div class="caja__trasera">
+        <!--content a un lado del sidebar menu-->
+        
+        <div class="d-none d-sm-block">
+            <div class="row m-0">
+                <div class="col-md-2 vh-100 "  style="background-color: #033d742d;">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <!--quiero un espacio en blanco-->
+                        <div class="d-flex p-2">
+                            <button type="button" class="btn">Primary</button>
+                            <button type="button" class="btn">Secondary</button>
+                        </div>
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+                      </div>
+                </div>
+            
+            <div class="col-md-10 ">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                        <a class="nav-link active text-dark" href="#">Active</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <div class="container">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show disabled" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">Hola</div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">Como</div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Estas</div>
+                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">Amigo</div>
                     </div>
-                    <!--contenedor de home-->
-                    <div class="contenedor__bienvenida">
-                        <form action="/salir/" class="formulario__login" method="post">
-                            {% csrf_token %}
-                            <h2>Bienvenido {{user.username}}!</h2>
-                            
-                            <button type="submit" name="logout--">Salir</button>
-                        </form>
-                </div>    
-            </main>
-        <script src='{% static "/js/scriptHome.js" %}'> </script>
-{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </main>
+    <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" ></script>
+</body>
+</html>
