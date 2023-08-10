@@ -35,10 +35,10 @@ def loginRegistro(request):
                 return render(request, 'index.html', {'user_not_found': True})
         elif 'registrarse--' in request.POST:
             #registro
-            username = request.POST['username']
+            email = request.POST['email']
             rut_de_la_empresa = request.POST['rut_de_la_empresa']
             rut_del_empleado = request.POST['rut_del_empleado']
-            if CustomUser.objects.filter(username=username).exists() or CustomUser.objects.filter(rut_del_empleado=rut_del_empleado).exists():
+            if CustomUser.objects.filter(email=email).exists() or CustomUser.objects.filter(rut_del_empleado=rut_del_empleado).exists():
                 return render(request, 'index.html', {'usuario_ya_existente': True})
             elif (not Empresa.objects.filter(rut=rut_de_la_empresa).exists()) or (not bool(re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', request.POST['email']))):
                 return render(request, 'index.html', {'datos_invalidos': True})
@@ -47,10 +47,10 @@ def loginRegistro(request):
                     #creo el mensaje
                     msg = MIMEMultipart()
                     msg['From'] = 'correo.confirmacion.pagina@gmail.com'
-                    msg['To'] = request.POST['email']
+                    msg['To'] = email
                     msg['Subject'] = 'Confirmación de registro'
                     #creo el mensaje, el mensaje tiene que ser profesional y no muy largo, agrega el asunto y el cuerpo del mensaje 
-                    message = 'Hola, ' + request.POST['first_name'] + ' ' + request.POST['last_name'] + ',\n\n' + 'Bienvenido a nuestra página web, tu usuario es: ' + username + ' y tu contraseña es: ' + request.POST['password'] + ', por favor, no compartas esta información con nadie. Cualquier duda o consulta, puedes contactarnos a través de este mismo correo.\n\n' + 'Saludos cordiales,\n' + 'Atte. Administración de la página web.'
+                    message = 'Hola, ' + request.POST['first_name'] + ' ' + request.POST['last_name'] + ',\n\n' + 'Bienvenido a nuestra página web, tu usuario y contraseña se definiran y en cuanto se acepte te los compartiremos. Cualquier duda o consulta, puedes contactarnos a través de este mismo correo.\n\n' + 'Saludos cordiales,\n' + 'Atte. Administración de la página web.'
                     #agrego el mensaje al correo
                     msg.attach(MIMEText(message, 'plain'))
                     #creo el servidor
@@ -62,21 +62,25 @@ def loginRegistro(request):
                     server.sendmail(msg['From'], msg['To'], msg.as_string())
                     server.quit()
                     #creo el usuario
+                    username = request.POST['first_name'].split(' ')[0].lower() + '.' + email.split('@')[0].lower()
                     user = CustomUser.objects.create_user(username=username, 
-                                                        password= request.POST['password'],
-                                                        email=request.POST['email'],
+                                                        password= 'Int3rn3t*2021',
+                                                        email=email,
                                                         first_name=request.POST['first_name'],           
                                                         last_name=request.POST['last_name'],
                                                         rut_de_la_empresa=Empresa.objects.get(rut=rut_de_la_empresa),
                                                         rut_del_empleado=rut_del_empleado)
                     login(request, user)
-                except Exception:
+                except Exception as e:
+                    print (e + 'error')
                     return render(request, 'index.html', {'datos_invalidos': True})
-                return redirect('Home')
+                return redirect('Confirmacion')
         else:
             return HttpResponse('Error')
     return render(request, 'index.html')
 
+def confirmacion(request):
+    return render(request, 'confirmacion.html')
 
 
 def signout(request):
