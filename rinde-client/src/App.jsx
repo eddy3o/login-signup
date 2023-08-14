@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 import './App.css'
 import React from 'react'
-import { Account } from './pages/Account';
-import { Principal } from './pages/Principal';
+import { Template } from './pages/Template';
 
 function App() {
   
@@ -13,8 +12,13 @@ function App() {
     <BrowserRouter>
 
         <Routes> 
-          <Route path='/principal' element={<Principal/>} />
-          <Route path='/cuenta' element={<Account/>} />
+          <Route path="/" element={<Navigate to="/principal" replace />} />
+          <Route path='/cuenta' element={<Template/>} />
+          <Route path='/principal' element={<Template/>} />
+          <Route path='/revision' element={<Template/>} />
+          <Route path='/rendir' element={<Template/>} />
+          <Route path='/aprovador' element={<Template/>} />
+          <Route path='/aprovados' element={<Template/>} />
         </Routes>
 
     </BrowserRouter>
