@@ -14,7 +14,7 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect('Login/Signup')
     else:
-        return render (request, 'home.html')
+        return redirect('Principal')
 
 
 
@@ -28,20 +28,20 @@ def loginRegistro(request):
                 user = CustomUser.objects.get(username=username)
                 if user.check_password(password):
                     login(request, user)
-                    return redirect('Home')
+                    return redirect('Principal')
                 else:
-                    return render(request, 'index.html', {'user_not_found': True})
+                    return render(request, 'login_logout.html', {'user_not_found': True})
             except CustomUser.DoesNotExist:
-                return render(request, 'index.html', {'user_not_found': True})
+                return render(request, 'login_logout.html', {'user_not_found': True})
         elif 'registrarse--' in request.POST:
             #registro
             email = request.POST['email']
             rut_de_la_empresa = request.POST['rut_de_la_empresa']
             rut_del_empleado = request.POST['rut_del_empleado']
             if CustomUser.objects.filter(email=email).exists() or CustomUser.objects.filter(rut_del_empleado=rut_del_empleado).exists():
-                return render(request, 'index.html', {'usuario_ya_existente': True})
+                return render(request, 'login_logout.html', {'usuario_ya_existente': True})
             elif (not Empresa.objects.filter(rut=rut_de_la_empresa).exists()) or (not bool(re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', request.POST['email']))):
-                return render(request, 'index.html', {'datos_invalidos': True})
+                return render(request, 'login_logout.html', {'datos_invalidos': True})
             else:
                 try:
                     #creo el mensaje
@@ -73,11 +73,11 @@ def loginRegistro(request):
                     login(request, user)
                 except Exception as e:
                     print (e + 'error')
-                    return render(request, 'index.html', {'datos_invalidos': True})
+                    return render(request, 'login_logout.html', {'datos_invalidos': True})
                 return redirect('Confirmacion')
         else:
             return HttpResponse('Error')
-    return render(request, 'index.html')
+    return render(request, 'login_logout.html')
 
 def confirmacion(request):
     return render(request, 'confirmacion.html')

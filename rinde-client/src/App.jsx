@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 import './App.css'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Template } from './pages/Template';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
 
         <Routes> 
-          <Route path="/" element={<Navigate to="/principal" replace />} />
+          
           <Route path='/cuenta' element={<Template/>} />
           <Route path='/principal' element={<Template/>} />
           <Route path='/revision' element={<Template/>} />
