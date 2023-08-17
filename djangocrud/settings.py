@@ -67,7 +67,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'tasks/templates',
-            os.path.join(BASE_DIR, 'rinde-client/dist'),
+            os.path.join(BASE_DIR, 'proyecto/build')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-'''
+
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
@@ -95,8 +95,8 @@ DATABASES = {
         conn_max_age=600
     )
 }
-'''
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
@@ -111,7 +111,7 @@ DATABASES = {
         },
     },
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -151,8 +151,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'rinde-client/dist/assets'),
+    os.path.join(BASE_DIR, 'static', 'rinde-client', 'dist'),
+    os.path.join(BASE_DIR, 'proyecto/build/static'),
 )
 
 # Default primary key field type

@@ -18,11 +18,6 @@ from django.contrib import admin
 from django.urls import path, re_path
 from tasks import views as tasks_views 
 from rinde import views as rinde_views
-from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +27,6 @@ urlpatterns = [
     path('salir/', tasks_views.signout, name='Salir'),
     path('confirmacion/', tasks_views.confirmacion, name='Confirmacion'),
     
-    path('principal/', TemplateView.as_view(template_name='index.html'), name='Principal'),
+    path('principal/', rinde_views.principal , name='Principal'),
 ] 
  

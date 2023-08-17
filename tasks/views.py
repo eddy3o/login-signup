@@ -6,16 +6,8 @@ from tasks.models import CustomUser, Empresa
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
-
-
-def home(request):
-    if not request.user.is_authenticated:
-        return redirect('Login/Signup')
-    else:
-        return redirect('Principal')
-
 
 
 def loginRegistro(request):
