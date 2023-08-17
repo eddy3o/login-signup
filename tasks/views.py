@@ -54,8 +54,7 @@ def loginRegistro(request):
                     server.sendmail(msg['From'], msg['To'], msg.as_string())
                     server.quit()
                     #creo el usuario
-                    username = request.POST['first_name'].split(' ')[0].lower() + '.' + email.split('@')[0].lower()
-                    user = CustomUser.objects.create_user(username=username, 
+                    user = CustomUser.objects.create_user(username=email, 
                                                         password= 'Int3rn3t*2021',
                                                         email=email,
                                                         first_name=request.POST['first_name'],           
