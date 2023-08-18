@@ -20,6 +20,8 @@ def loginRegistro(request):
                 user = CustomUser.objects.get(username=username)
                 if user.check_password(password):
                     login(request, user)
+                    #if user.is_superuser:
+                    #    return redirect('admin/')
                     return redirect('Principal')
                 else:
                     return render(request, 'login_logout.html', {'user_not_found': True})
@@ -60,7 +62,9 @@ def loginRegistro(request):
                                                         first_name=request.POST['first_name'],           
                                                         last_name=request.POST['last_name'],
                                                         rut_de_la_empresa=Empresa.objects.get(rut=rut_de_la_empresa),
-                                                        rut_del_empleado=rut_del_empleado)
+                                                        rut_del_empleado=rut_del_empleado,
+                                                        is_active=False,
+                                                        )
                     login(request, user)
                 except Exception as e:
                     print (e + 'error')

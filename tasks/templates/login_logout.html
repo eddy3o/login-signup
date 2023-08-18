@@ -25,10 +25,14 @@
                     <div class="contenedor__login-register">
                         <form action="/" class="formulario__login" method="post">
                             {% csrf_token %}
+                            
                             <h2>Iniciar Sesión</h2>
                                 {% if user_not_found %}
                                     <h3> Usuario o contraseña incorrectos</h3>
                                 {% endif %}
+                            <div class="vacio">
+
+                            </div>
                             <input type="text" placeholder="Usuario" 
                                 name = 'username' required minlength="5">
                             <input type="password" placeholder="Contraseña" 
